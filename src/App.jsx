@@ -178,55 +178,54 @@ export default function BookRecommendationApp() {
           ))}
         </div>
       )}
-      {selectedBook && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center md:items-center md:justify-center">
+     {selectedBook && (
+  <>
     {/* Overlay */}
     <div
-      className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm transition-opacity duration-300"
+      className="fixed inset-0 bg-black bg-opacity-50 z-40"
       onClick={() => setSelectedBook(null)}
     />
 
-    {/* Drawer / Modal */}
-    <div
-      className="relative z-10 bg-white shadow-xl w-full h-full max-w-md md:rounded-lg md:h-auto md:w-[32rem] md:scale-100
-                 transform transition-transform duration-300 ease-out
-                 md:translate-y-0 translate-x-full md:translate-x-0"
-    >
-      <div className="p-6 overflow-y-auto max-h-full">
-        {/* Close button */}
+    {/* Side Drawer */}
+    <div className="fixed inset-y-0 right-0 w-full sm:w-[400px] bg-white z-50 shadow-xl transform transition-transform duration-300 translate-x-0 overflow-y-auto">
+      <div className="p-6 flex flex-col h-full">
+        {/* Close Button */}
         <button
-  onClick={() => setSelectedBook(null)}
-  className="mt-6 w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 cursor-pointer mb-3"
->
-  Back to Recommendations
-</button>
+          onClick={() => setSelectedBook(null)}
+          className="self-end text-gray-500 hover:text-gray-700 mb-4"
+        >
+          Close
+        </button>
 
-
+        {/* Book Cover */}
         <img
           src={selectedBook.cover}
           alt={selectedBook.title}
-          className="w-full h-64 object-cover rounded"
+          className="w-full h-64 object-cover rounded mb-4"
         />
-        <h2 className="text-2xl font-bold mt-4 mb-2">{selectedBook.title}</h2>
-        <p className="text-gray-700 text-sm mb-2">
-          Author: <span className="font-medium">{selectedBook.author}</span>
-        </p>
-        <p className="text-gray-700 text-sm mb-2">Published: {selectedBook.year}</p>
-        <p className="text-gray-700 text-sm mb-4">{selectedBook.description}</p>
-        <div className="flex flex-wrap gap-2">
+
+        {/* Book Info */}
+        <h2 className="text-2xl font-bold mb-2">{selectedBook.title}</h2>
+        <p className="text-gray-600 mb-1">Author: {selectedBook.author}</p>
+        <p className="text-gray-600 mb-1">Published: {selectedBook.year}</p>
+        <p className="text-gray-600 mb-3">Rating: {selectedBook.rating}/5</p>
+
+        {/* Genres */}
+        <div className="flex flex-wrap gap-2 mb-4">
           {selectedBook.genres.map((genre, idx) => (
-            <span
-              key={idx}
-              className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full"
-            >
+            <span key={idx} className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
               {genre}
             </span>
           ))}
         </div>
+
+        {/* Description */}
+        <p className="text-sm text-gray-700">{selectedBook.description}</p>
       </div>
     </div>
-  </div>
+  </>
 )}
+
 
     </div>
   );
